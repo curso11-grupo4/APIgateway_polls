@@ -15,7 +15,7 @@ def get_all_candidates() -> dict:
 
 
 @candidate_blueprints.route("/candidate/<string:id>", methods=['GET'])
-def get_vote_by_id(id_: str) -> dict:
+def get_candidate_by_id(id_: str) -> dict:
     url = url_base + f'/{id_}'
     response = requests.get(url, headers=HEADERS)
     return response.json()
