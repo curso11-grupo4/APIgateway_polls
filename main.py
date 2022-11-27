@@ -31,6 +31,11 @@ app.register_blueprint(vote_blueprints)
 
 @app.before_request
 def before_request_callback():
+    """
+    This method is used to check before any request if the user
+    has the permission to consume the microservice
+    :return: Error message: unauthorized
+    """
     endpoint = utils.clear_url(request.path)
     exclude_route = ['/login', '/']
     if exclude_route.__contains__(request.path):
@@ -53,6 +58,11 @@ def home():
 
 @app.route("/login", methods=['POST'])
 def login() -> tuple:
+    """
+    The information on the body is transformed and the endpoint of the login
+    in the backend is called. Additionally, a timeframe is set up
+    :return: a tuple with the access token and user id
+    """
     user = request.get_json()
     url = data_config.get("url-backend-security") + "/user/login"
     response = requests.post(url, headers=utils.HEADERS, json=user)
